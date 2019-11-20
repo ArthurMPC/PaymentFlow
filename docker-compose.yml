@@ -1,0 +1,34 @@
+version: "3.4"
+
+services:
+    payment-api:
+        container_name: payment-api
+        build:
+            context: .
+            dockerfile: ./PaymentFlow.Service.API/Dockerfile
+        ports: 
+            - "7001:80"
+            - "7002:443"
+            
+    rabbitmq:
+        image: rabbitmq:3.7-management
+        container_name: rabbitmq
+        ports: 
+            - "15672:15672"
+            - "5672:5672"
+        environment: 
+            - RABBITMQ_DEFAULT_USER=guest
+            - RABBITMQ_DEFAULT_PASS=guest
+
+    payment-agent:
+        depends_on: 
+            - rabbitmq
+        container_name: payment-agent
+        build:
+            context: .
+            dockerfile: ./PaymentFlow.Consolidator.Agent/Dockerfile
+    mongodb: 
+        image: mongo
+        container_name: mongodb
+        ports: 
+            - "27017:27017"

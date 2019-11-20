@@ -1,0 +1,13 @@
+{
+  "profiles": {
+    "PaymentFlow.Consolidator.Agent": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "": ""
+      }
+    },
+    "Docker": {
+      "commandName": "Docker"
+    }
+  }
+}
